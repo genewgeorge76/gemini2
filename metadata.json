@@ -1,0 +1,8 @@
+{
+  "name": "J. Worden & Sons | Municipal-Grade Asphalt Authority",
+  "description": "Consolidated Master Repository for the official J. Worden & Sons Asphalt Paving digital platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

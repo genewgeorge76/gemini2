@@ -1,0 +1,149 @@
+[build]
+  command  = "npm run build"
+  publish  = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[context.production.environment]
+  VITE_LEADS_API_URL = "https://codexbuildfreeofbase44-production.up.railway.app/api/v1/leads/website"
+  VITE_AI_CHAT_URL   = "https://codexbuildfreeofbase44-production.up.railway.app/api/v1/public/chat"
+
+# Apex → www canonical
+[[redirects]]
+  from   = "https://jwordenasphaltpaving.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/:splat"
+  status = 301
+  force  = true
+
+# ─── LEGACY DOMAIN REDIRECTS ─────────────────────────────────────────────────
+# jwordenandsonspaving.com → main site (CRITICAL — Yelp, Angi, HomeAdvisor link here)
+[[redirects]]
+  from   = "https://jwordenandsonspaving.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.jwordenandsonspaving.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/:splat"
+  status = 301
+  force  = true
+
+# Richmond domains → /locations/richmond
+[[redirects]]
+  from   = "https://richmondasphaltpaving.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/locations/richmond"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.richmondasphaltpaving.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/locations/richmond"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://richmondasphaltpaving.net/*"
+  to     = "https://www.jwordenasphaltpaving.com/locations/richmond"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://richmondasphaltpros.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/locations/richmond"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.richmondasphaltpros.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/locations/richmond"
+  status = 301
+  force  = true
+
+# Carolina → main site
+[[redirects]]
+  from   = "https://carolinablacktop.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "https://www.carolinablacktop.com/*"
+  to     = "https://www.jwordenasphaltpaving.com/"
+  status = 301
+  force  = true
+
+# Static files — serve before SPA fallback
+[[redirects]]
+  from   = "/robots.txt"
+  to     = "/robots.txt"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/sitemap.xml"
+  to     = "/sitemap.xml"
+  status = 200
+  force  = true
+
+# Service worker cleanup (prevents old cached SW from breaking site)
+[[redirects]]
+  from   = "/sw.js"
+  to     = "/sw.js"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/service-worker.js"
+  to     = "/service-worker.js"
+  status = 200
+  force  = true
+
+# SPA fallback — must be LAST
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# ─── SECURITY HEADERS ────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options           = "SAMEORIGIN"
+    X-Content-Type-Options    = "nosniff"
+    X-XSS-Protection          = "1; mode=block"
+    Referrer-Policy            = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy   = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https:; frame-src 'self' https://www.google.com https://www.youtube.com"
+    Permissions-Policy        = "camera=(), microphone=(), geolocation=(self)"
+
+# HTML — never cache (always get latest deploy)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# JS/CSS — immutable (fingerprinted filenames)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Images — 30 day cache
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Video — 30 day cache
+[[headers]]
+  for = "/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Fonts — 1 year cache
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
