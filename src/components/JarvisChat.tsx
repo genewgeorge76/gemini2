@@ -37,7 +37,7 @@ interface ChatResponse {
 
 const SESSION_KEY = 'jworden.jarvis.session';
 const HISTORY_KEY = 'jworden.jarvis.history';
-const ENDPOINT_FALLBACK = 'https://codexbuildfreeofbase44-production.up.railway.app';
+const ENDPOINT_FALLBACK = 'https://jworden-api.fly.dev';
 
 function resolveEndpoint(): string {
   const explicit = (import.meta.env.VITE_AI_CHAT_URL as string | undefined)?.trim();

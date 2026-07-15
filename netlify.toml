@@ -6,8 +6,8 @@
   NODE_VERSION = "22"
 
 [context.production.environment]
-  VITE_LEADS_API_URL = "https://codexbuildfreeofbase44-production.up.railway.app/api/v1/leads/website"
-  VITE_AI_CHAT_URL   = "https://codexbuildfreeofbase44-production.up.railway.app/api/v1/public/chat"
+  VITE_LEADS_API_URL = "https://jworden-api.fly.dev/api/v1/leads/website"
+  VITE_AI_CHAT_URL   = "https://jworden-api.fly.dev/api/v1/public/chat"
 
 # Apex → www canonical
 [[redirects]]
